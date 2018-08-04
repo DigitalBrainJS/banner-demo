@@ -1,37 +1,26 @@
 const SERVER_PORT = 3000;
-const name = '';
 const PUBLIC_DIR = __dirname + '/public';
 const destPath = PUBLIC_DIR + '/js';
-
 const config = require('./config.json');
-
 const path = require('path');
 const util = require('util');
 const chalk = require('chalk');
-
 const gulp = require('gulp');
 const gulpSequence = require('gulp-sequence');
-
 const sourcemaps = require('gulp-sourcemaps');
 const rollup = require('gulp-better-rollup');
 const commonjs = require('rollup-plugin-commonjs');
 const resolve = require('rollup-plugin-node-resolve');
-
 const babel = require('rollup-plugin-babel');
-
 const {noop} = require('gulp-util');
 const plumber = require('gulp-plumber');
-
 const terser = require('gulp-minify');
 const gzip = require('gulp-gzip');
 const express = require('express');
 const fs = require('fs');
-
 const opn = require('opn');
 
-
 const PHP_CGI_PATH = config['php-cgi-path'] || 'php-cgi';
-
 const commandExists = require('command-exists');
 
 const php_cgi = require('node-phpcgi')({
@@ -41,12 +30,7 @@ const php_cgi = require('node-phpcgi')({
 
 let isDevMode = false;
 
-/*console.log('argv string:', process.argv,"\n");*/
-
-//const argv = require('minimist')(process.argv.slice(2));
 const argv = require('yargs').argv;
-
-/*console.log('Parsed:',util.inspect(argv));*/
 
 const buildOptions = {
     minify: !!argv.minify,
@@ -218,5 +202,5 @@ gulp.task('default', ['start', 'watch'], function () {
     isDevMode = true;
 });
 
-//console.log(project);
+
 
