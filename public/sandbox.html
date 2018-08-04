@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sandbox</title>
+</head>
+<body>
+    <style>
+        #info_block{
+            padding: 10px;
+            background-color: #dedde0;
+        }
+
+        .frame-container{
+            margin:10px;
+            display: inline-block;
+            width: 400px;
+
+        }
+
+        .frame-container>div{
+            background-color: #39b3cc;
+            padding: 5px;
+        }
+
+        iframe{
+            border: none;
+            width: 100%;
+            height:400px;
+        }
+    </style>
+
+    <div id="info_block"></div>
+
+    <script>
+        document.querySelector('#info_block').innerHTML= 'Page domain: ' + document.domain;
+
+        function frame(src, permissions){
+
+            const container= document.createElement('div');
+            container.className= "frame-container";
+            container.innerHTML= `<div>${src} (${permissions!==undefined? permissions : 'without explicit sandbox mode'})</div>`;
+
+            const frame= document.createElement('iframe');
+
+            if(permissions!==undefined){
+                frame.setAttribute('sandbox', permissions);
+            }
+
+            frame.src= src;
+
+            container.appendChild(frame);
+
+            document.body.appendChild(container);
+        }
+
+        frame('http://localhost:3000/banner.html');
+        frame('http://127.0.0.1:3000/banner.html');
+        frame('http://127.0.0.1:3000/banner.html', 'allow-scripts allow-modals');
+        //frame('http://127.0.0.1:3000/banner.html', 'allow-scripts allow-same-origin');
+        //frame('http://localhost:3000/banner.html','allow-same-origin allow-top-navigation allow-forms allow-scripts allow-modals');
+        //frame('http://127.0.0.1:3000/banner.html','allow-same-origin allow-top-navigation allow-forms allow-scripts allow-modals');
+        //frame('http://127.0.0.1:3000/banner.html','allow-scripts allow-modals');
+
+    </script>
+
+
+
+
+
+</body>
+</html>
